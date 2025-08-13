@@ -1,0 +1,14 @@
+services:
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: phpmyadmin
+    restart: unless-stopped
+    environment:
+      PMA_HOST: mysql-21d1be3d-henkkytc-8bbc.f.aivencloud.com
+      PMA_PORT: 17810
+      PMA_USER: avnadmin
+      PMA_PASSWORD: AVNS_2xlsldcrdVN4TROv3nR
+      PMA_SSL: "true"
+      PMA_SSL_CA: /etc/phpmyadmin/ca.pem
+    ports:
+     - "8000:80"
