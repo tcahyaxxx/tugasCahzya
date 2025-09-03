@@ -378,3 +378,5 @@ $menu = $stmt ? $stmt->fetchAll() : [];
       <script src="js/main.js"></script>
    </body>
 </html>
+
+<!-- baru -->
