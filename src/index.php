@@ -1,3 +1,27 @@
+<?php
+$host = "mysql-21d1be3d-henkkytc-8bbc.f.aivencloud.com";
+$port = 17810;
+$user = "avnadmin";
+$pass = "AVNS_2xlsldcrdVN4TROv3nR";
+$db   = "defaultdb"; 
+
+try {
+    // Koneksi pakai PDO
+    $dsn = "mysql:host=$host;port=$port;dbname=$db;charset=utf8mb4";
+    $pdo = new PDO($dsn, $user, $pass, [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,   // error -> exception
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC, // fetch assoc
+    ]);
+} catch (PDOException $e) {
+    die("Koneksi gagal: " . $e->getMessage());
+}
+
+// Query ambil data produk
+$sql = "SELECT nama_menu, harga, gambar, deskripsi FROM Menu";
+$stmt = $pdo->query($sql);
+$menu = $stmt ? $stmt->fetchAll() : [];
+?>
+
 <!DOCTYPE html>
    <html lang="en">
    <head>
@@ -189,125 +213,44 @@
 
          <!--==================== PRODUCTS ====================-->
          <section class="products section" id="products">
-            <h2 class="section__title">THE MOST <br> REQUESTED </h2>
+    <h2 class="section__title">THE MOST <br> REQUESTED</h2>
 
-            <div class="products__container container grid">
-               <article class="products__card">
-                  <div class="products__images">
-                     <div class="products__shape"></div>
-                     <img src="img/ice-img.png" alt="image" class="products__ice-1">
-                     <img src="img/ice-img.png" alt="image" class="products__ice-2">
-                     <img src="img/products-coffee-1.png" alt="image" class="products__coffee">
-                  </div>
+    <div class="products__container container grid">
+        <?php if (!empty($menu)): ?>
+            <?php foreach ($menu as $row): ?>
+                <article class="products__card">
+                    <div class="products__images">
+                        <div class="products__shape"></div>
+                        <img src="img/ice-img.png" alt="image" class="products__ice-1">
+                        <img src="img/ice-img.png" alt="image" class="products__ice-2">
 
-                  <div class="products__data">
-                     <h3 class="products__name">ICED COFFEE MOCHA</h3>
+                        <!-- ambil gambar langsung dari kolom 'gambar' -->
+                        <img src="<?= htmlspecialchars($row['gambar']) ?>" 
+                             alt="<?= htmlspecialchars($row['nama_menu']) ?>" 
+                             class="products__coffee">
+                    </div>
 
-                     <span class="products__price">$15.90</span>
-                     
-                     <button class="products__button">
-                        <i class="ri-shopping-cart-2-line"></i>
-                     </button>
-                  </div>
-               </article>
-
-               <article class="products__card">
-                  <div class="products__images">
-                     <div class="products__shape"></div>
-                     <img src="img/ice-img.png" alt="image" class="products__ice-1">
-                     <img src="img/ice-img.png" alt="image" class="products__ice-2">
-                     <img src="img/products-coffee-2.png" alt="image" class="products__coffee">
-                  </div>
-
-                  <div class="products__data">
-                     <h3 class="products__name">COFFEE WITH CREAM</h3>
-
-                     <span class="products__price">$11.90</span>
-                     
-                     <button class="products__button">
-                        <i class="ri-shopping-cart-2-line"></i>
-                     </button>
-                  </div>
-               </article>
-
-               <article class="products__card">
-                  <div class="products__images">
-                     <div class="products__shape"></div>
-                     <img src="img/ice-img.png" alt="image" class="products__ice-1">
-                     <img src="img/ice-img.png" alt="image" class="products__ice-2">
-                     <img src="img/products-coffee-3.png" alt="image" class="products__coffee">
-                  </div>
-
-                  <div class="products__data">
-                     <h3 class="products__name">CAPPUCCINO COFFEE</h3>
-
-                     <span class="products__price">$19.90</span>
-                     
-                     <button class="products__button">
-                        <i class="ri-shopping-cart-2-line"></i>
-                     </button>
-                  </div>
-               </article>
-
-               <article class="products__card">
-                  <div class="products__images">
-                     <div class="products__shape"></div>
-                     <img src="img/ice-img.png" alt="image" class="products__ice-1">
-                     <img src="img/ice-img.png" alt="image" class="products__ice-2">
-                     <img src="img/products-coffee-4.png" alt="image" class="products__coffee">
-                  </div>
-
-                  <div class="products__data">
-                     <h3 class="products__name">COFFEE WITH MILK</h3>
-
-                     <span class="products__price">$9.90</span>
-                     
-                     <button class="products__button">
-                        <i class="ri-shopping-cart-2-line"></i>
-                     </button>
-                  </div>
-               </article>
-
-               <article class="products__card">
-                  <div class="products__images">
-                     <div class="products__shape"></div>
-                     <img src="img/ice-img.png" alt="image" class="products__ice-1">
-                     <img src="img/ice-img.png" alt="image" class="products__ice-2">
-                     <img src="img/products-coffee-5.png" alt="image" class="products__coffee">
-                  </div>
-
-                  <div class="products__data">
-                     <h3 class="products__name">CLASSIC ICED COFFEE</h3>
-
-                     <span class="products__price">$5.90</span>
-                     
-                     <button class="products__button">
-                        <i class="ri-shopping-cart-2-line"></i>
-                     </button>
-                  </div>
-               </article>
-               
-               <article class="products__card">
-                  <div class="products__images">
-                     <div class="products__shape"></div>
-                     <img src="img/ice-img.png" alt="image" class="products__ice-1">
-                     <img src="img/ice-img.png" alt="image" class="products__ice-2">
-                     <img src="img/products-coffee-6.png" alt="image" class="products__coffee">
-                  </div>
-
-                  <div class="products__data">
-                     <h3 class="products__name">ICED COFFEE FRAPPE</h3>
-
-                     <span class="products__price">$16.90</span>
-                     
-                     <button class="products__button">
-                        <i class="ri-shopping-cart-2-line"></i>
-                     </button>
-                  </div>
-               </article>
-            </div>
-         </section>
-
+                    <div class="products__data">
+                        <h3 class="products__name">
+                            <?= htmlspecialchars($row['nama_menu']) ?>
+                        </h3>
+                        <span class="products__price">
+                            Rp<?= number_format($row['harga'], 0, ',', '.') ?>
+                        </span>
+                        <p class="products__desc">
+                            <?= htmlspecialchars($row['deskripsi']) ?>
+                        </p>
+                        <button class="products__bottom">
+                            <i class="ri-shopping-bag-3-fill"></i>
+                        </button>
+                    </div>
+                </article>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <p>Tidak ada menu tersedia.</p>
+        <?php endif; ?>
+    </div>
+</section>
          <!--==================== CONTACT ====================-->
          <section class="contact section" id="contact">
             <h2 class="section__title">CONTAC US</h2>

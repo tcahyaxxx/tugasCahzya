@@ -741,7 +741,6 @@ font-size: var(--small-font-size);
   background-color: hsl(166, 20%, 30%);
 }
 
-/*=============== SCROLL UP ===============*/
 .scrollup{
   position: fixed;
   right: 1rem;
@@ -753,16 +752,16 @@ font-size: var(--small-font-size);
   padding: 6px;
   font-size: 1.25rem;
   z-index: var(--z-tooltip);
-  transition: bottom .4s, trasform .4s;
+  transition: bottom .4s, transform .4s;
 }
 
 .scrollup:hover{
-  transform: translateY(-5rem);
+  transform: translateY(-0.25rem);
 }
 
 /* Show Scroll Up */
 .show-scroll{
-  bottom:3rem;
+  bottom: 3rem;
 }
 
 /*=============== BREAKPOINTS ===============*/
